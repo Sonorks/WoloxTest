@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/wolox?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: root
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+endpoints:
+  post:
+    by-user: https://jsonplaceholder.typicode.com/posts?userId=
