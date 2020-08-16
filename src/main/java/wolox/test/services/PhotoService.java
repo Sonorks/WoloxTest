@@ -29,7 +29,7 @@ public class PhotoService {
         return client.getAllPhotos();
     }
 
-    public Mono<List<Object>> getPhotosByUserId(String userId) {
+    public Mono<Object> getPhotosByUserId(String userId) {
         Mono<List<Album>> albumsByUser = albumService.getAlbumsByUserId(userId);
         return albumsByUser.flatMap(albums ->{
             List<Mono<List<Photo>>> photosListMono = new ArrayList<>();
