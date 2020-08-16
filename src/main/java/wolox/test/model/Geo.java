@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Album {
-    private int userId;
-    private int id;
-    private String title;
+public class Geo {
+    private String lat;
+    private String lng;
 }

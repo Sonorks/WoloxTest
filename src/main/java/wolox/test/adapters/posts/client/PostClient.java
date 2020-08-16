@@ -32,15 +32,15 @@ public class PostClient extends WebClientBaseGET<List<Post>, String> {
     @Override
     protected Mono<List<Post>> mapResponse(ClientResponse response, String data) {
         return response.bodyToMono(Post[].class)
-                .map(posts -> Arrays.asList(posts));
+                .map(Arrays::asList);
     }
 
 
     @Override
     protected Mono<List<Post>> createErrorResponse(String data) {
-        /*
+        /**
         TO-DO: add loggers
-         */
+         **/
         return Mono.just(new ArrayList<>());
     }
 }

@@ -5,10 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Comment {
-    private int postId;
-    private int id;
+public class Company {
     private String name;
-    private String email;
-    private String body;
+    private String catchPhrase;
+    private String bs;
 }

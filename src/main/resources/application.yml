@@ -12,3 +12,11 @@ spring:
 endpoints:
   post:
     by-user: https://jsonplaceholder.typicode.com/posts?userId=
+  comment:
+    all: https://jsonplaceholder.typicode.com/comments
+  photo:
+    all: https://jsonplaceholder.typicode.com/photos
+  user:
+    all: https://jsonplaceholder.typicode.com/users
+  album:
+    all: https://jsonplaceholder.typicode.com/albums
