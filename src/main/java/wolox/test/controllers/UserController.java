@@ -2,6 +2,7 @@ package wolox.test.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
@@ -24,6 +25,11 @@ public class UserController {
     @GetMapping(path="")
     public Mono<List<User>> getAllUsers(){
         return this.service.getAllUsers();
+    }
+
+    @GetMapping("/{albumId}/{privilege}")
+    public Mono<List<String>> getUsersByAlbumAndPrivileges(@PathVariable("albumId") String albumId, @PathVariable("privilege") String privilege){
+        return this.service.getUsersByAlbumAndPrivileges(albumId, privilege);
     }
 
 
