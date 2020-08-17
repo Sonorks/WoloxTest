@@ -1,5 +1,7 @@
 package wolox.test.adapters.posts.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ClientHttpConnector;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class PostClient extends WebClientBaseGET<List<Post>, String> {
+
+    Logger logger = LoggerFactory.getLogger(PostClient.class);
 
     @Value("${endpoints.post.by-user}")
     private String url;
@@ -38,9 +42,7 @@ public class PostClient extends WebClientBaseGET<List<Post>, String> {
 
     @Override
     protected Mono<List<Post>> createErrorResponse(String data) {
-        /**
-        TO-DO: add loggers
-         **/
+        logger.error("Error consuming posts service for data: " + data);
         return Mono.just(new ArrayList<>());
     }
 }

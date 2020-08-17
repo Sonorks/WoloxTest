@@ -1,5 +1,7 @@
 package wolox.test.adapters.albums.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ClientHttpConnector;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class AlbumClient extends WebClientBaseGET<List<Album>,String> {
+
+    Logger logger = LoggerFactory.getLogger(AlbumClient.class);
 
     @Value("${endpoints.album.all}")
     private String url;
@@ -37,6 +41,7 @@ public class AlbumClient extends WebClientBaseGET<List<Album>,String> {
 
     @Override
     protected Mono<List<Album>> createErrorResponse(String data) {
+        logger.error("Error consuming album service for data: "+data);
         return Mono.just(new ArrayList<>());
     }
 

@@ -10,7 +10,6 @@ import wolox.test.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import static wolox.test.utils.ValidatorUtil.validateStringUsingRegexp;
 import static wolox.test.utils.ValidatorUtil.validateUserOrAlbumId;
 
 @Service

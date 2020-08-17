@@ -1,5 +1,7 @@
 package wolox.test.adapters.users.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ClientHttpConnector;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class UserClient extends WebClientBaseGET<List<User>, String> {
+
+    Logger logger = LoggerFactory.getLogger(UserClient.class);
 
     @Value("${endpoints.user.all}")
     private String url;
@@ -36,6 +40,7 @@ public class UserClient extends WebClientBaseGET<List<User>, String> {
 
     @Override
     protected Mono<List<User>> createErrorResponse(String data) {
+        logger.error("Error consuming users service for id: "+data);
         return Mono.just(new ArrayList<>());
     }
 

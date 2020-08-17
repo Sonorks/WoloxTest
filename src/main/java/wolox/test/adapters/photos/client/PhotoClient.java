@@ -1,10 +1,11 @@
 package wolox.test.adapters.photos.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 import wolox.test.adapters.WebClientBaseGET;
@@ -12,11 +13,12 @@ import wolox.test.model.Photo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 @Component
 public class PhotoClient extends WebClientBaseGET<List<Photo>, String> {
+
+    Logger logger = LoggerFactory.getLogger(PhotoClient.class);
 
     @Value("${endpoints.photo.all}")
     private String url;
@@ -39,6 +41,7 @@ public class PhotoClient extends WebClientBaseGET<List<Photo>, String> {
 
     @Override
     protected Mono<List<Photo>> createErrorResponse(String data) {
+        logger.error("Error consuming service for id: "+data);
         return Mono.just(new ArrayList<>());
     }
 

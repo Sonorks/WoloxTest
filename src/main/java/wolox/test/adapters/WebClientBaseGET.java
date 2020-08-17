@@ -4,9 +4,6 @@ import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import wolox.test.model.Photo;
-
-import java.util.List;
 
 public abstract class WebClientBaseGET<R, T> {
 

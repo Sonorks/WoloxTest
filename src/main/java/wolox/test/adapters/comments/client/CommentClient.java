@@ -1,5 +1,7 @@
 package wolox.test.adapters.comments.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ClientHttpConnector;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class CommentClient extends WebClientBaseGET<List<Comment>,String> {
+
+    private static Logger logger = LoggerFactory.getLogger(CommentClient.class);
 
     @Value("${endpoints.comment.all}")
     private String url;
@@ -37,6 +41,7 @@ public class CommentClient extends WebClientBaseGET<List<Comment>,String> {
 
     @Override
     protected Mono<List<Comment>> createErrorResponse(String data) {
+        logger.error("Error consuming comment service for data: "+ data);
         return Mono.just(new ArrayList<>());
     }
 
