@@ -3,12 +3,17 @@ package wolox.test.controllers;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import wolox.test.model.Album;
 import wolox.test.services.AlbumService;
 
 import java.util.List;
+
+import static wolox.test.utils.ResponseUtil.getBadRequestResponse;
+import static wolox.test.utils.ResponseUtil.getOkResponse;
+import static wolox.test.utils.ValidatorUtil.validateUserOrAlbumId;
 
 @RestController
 @RequestMapping("v1/albums")
@@ -21,23 +26,32 @@ public class AlbumController {
     }
 
     @GetMapping("")
-    public Mono<List<Album>> getAllAlbums(){
-        return this.service.getAllAlbums();
+    public ResponseEntity<Mono<List<Album>>> getAllAlbums(){
+        return getOkResponse(this.service.getAllAlbums());
     }
 
     @GetMapping("/{userId}")
-    public Mono<List<Album>> getAlbumsByUserId(@PathVariable("userId") String userId){
-        return this.service.getAlbumsByUserId(userId);
+    public ResponseEntity<Mono<List<Album>>> getAlbumsByUserId(@PathVariable("userId") String userId){
+        if(validateUserOrAlbumId(userId)) {
+            return getOkResponse(this.service.getAlbumsByUserId(userId));
+        }
+        return getBadRequestResponse();
     }
 
     @PostMapping("/register")
-    public Mono<Boolean> registerAlbumWithUserAndPrivileges(@RequestBody AlbumPrivileges albumPrivileges){
-        return service.saveAlbumWithUserAndPrivileges(albumPrivileges.getAlbumId(), albumPrivileges.getUserId(), albumPrivileges.isRead(), albumPrivileges.isWrite());
+    public ResponseEntity<Mono<Boolean>> registerAlbumWithUserAndPrivileges(@RequestBody AlbumPrivileges albumPrivileges){
+        if(service.validateAlbumIdAndUserId(albumPrivileges.getAlbumId(), albumPrivileges.getUserId())) {
+            return getOkResponse(service.saveAlbumWithUserAndPrivileges(albumPrivileges.getAlbumId(), albumPrivileges.getUserId(), albumPrivileges.isRead(), albumPrivileges.isWrite()));
+        }
+        return getBadRequestResponse();
     }
 
     @PutMapping("/update")
-    public Mono<Boolean> registarAlbumWithUserAndPrivileges(@RequestBody AlbumPrivileges albumPrivileges){
-        return service.updateAlbumWithUserAndPrivileges(albumPrivileges.getAlbumId(), albumPrivileges.getUserId(), albumPrivileges.isRead(), albumPrivileges.isWrite());
+    public ResponseEntity<Mono<Boolean>> registarAlbumWithUserAndPrivileges(@RequestBody AlbumPrivileges albumPrivileges){
+        if(service.validateAlbumIdAndUserId(albumPrivileges.getAlbumId(), albumPrivileges.getUserId())) {
+            return getOkResponse(service.updateAlbumWithUserAndPrivileges(albumPrivileges.getAlbumId(), albumPrivileges.getUserId(), albumPrivileges.isRead(), albumPrivileges.isWrite()));
+        }
+        return getBadRequestResponse();
     }
 
 

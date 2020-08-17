@@ -10,6 +10,9 @@ import wolox.test.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import static wolox.test.utils.ValidatorUtil.validateStringUsingRegexp;
+import static wolox.test.utils.ValidatorUtil.validateUserOrAlbumId;
+
 @Service
 public class UserService {
 
@@ -36,5 +39,10 @@ public class UserService {
         } else {
             return Mono.just(new ArrayList<>());
         }
+    }
+
+    public boolean validateAlbumAndPrivilege(String albumId, String privilege) {
+        return validateUserOrAlbumId(albumId)
+                && (privilege.equals(WRITE_PRIV) || privilege.equals(READ_PRIV));
     }
 }

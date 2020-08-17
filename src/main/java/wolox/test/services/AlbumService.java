@@ -54,4 +54,7 @@ public class AlbumService {
         return Mono.just(false);
     }
 
+    public boolean validateAlbumIdAndUserId(int albumId, int userId) {
+        return albumId > 0 && userId > 0;
+    }
 }

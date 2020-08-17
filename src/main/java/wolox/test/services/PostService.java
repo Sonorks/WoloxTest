@@ -21,4 +21,5 @@ public class PostService {
     public Mono<List<Post>> getPostsByUserId(String userId){
         return client.getPostsByUser(userId);
     }
+
 }
