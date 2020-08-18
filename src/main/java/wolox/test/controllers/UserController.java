@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/{albumId}/{privilege}")
-    public ResponseEntity<Mono<List<String>>> getUsersByAlbumAndPrivileges(@PathVariable("albumId") String albumId, @PathVariable("privilege") String privilege){
+    public ResponseEntity<Mono<List<Integer>>> getUsersByAlbumAndPrivileges(@PathVariable("albumId") String albumId, @PathVariable("privilege") String privilege){
         if(service.validateAlbumAndPrivilege(albumId, privilege)) {
             return getOkResponse(this.service.getUsersByAlbumAndPrivileges(albumId, privilege));
         }

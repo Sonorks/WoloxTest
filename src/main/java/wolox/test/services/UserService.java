@@ -30,7 +30,7 @@ public class UserService {
         return client.getAllUsers();
     }
 
-    public Mono<List<String>> getUsersByAlbumAndPrivileges(String albumId, String privilege) {
+    public Mono<List<Integer>> getUsersByAlbumAndPrivileges(String albumId, String privilege) {
         if(privilege.equals(WRITE_PRIV)){
             return Mono.just(repository.getUsersByAlbumIdAndWrite(albumId,true));
         } else if(privilege.equals(READ_PRIV)){

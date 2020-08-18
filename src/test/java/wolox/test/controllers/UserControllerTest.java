@@ -65,10 +65,10 @@ public class UserControllerTest {
     public void testGetUsersByAlbumAndPrivilegesWrite() {
         albumController.registerAlbumWithUserAndPrivileges(new AlbumController.AlbumPrivileges(1,1,true,true))
         .getBody().block();
-        ResponseEntity<Mono<List<String>>> res = userController.getUsersByAlbumAndPrivileges("1","write");
+        ResponseEntity<Mono<List<Integer>>> res = userController.getUsersByAlbumAndPrivileges("1","write");
         StepVerifier
                 .create(res.getBody())
-                .expectNextMatches(users -> users.size() == 1 && users.iterator().next().equals("1"))
+                .expectNextMatches(users -> users.size() == 1 && users.iterator().next().equals(1))
                 .verifyComplete();
     }
 
@@ -76,10 +76,10 @@ public class UserControllerTest {
     public void testGetUsersByAlbumAndPrivilegesRead() {
         albumController.registerAlbumWithUserAndPrivileges(new AlbumController.AlbumPrivileges(1,1,true,true))
                 .getBody().block();
-        ResponseEntity<Mono<List<String>>> res = userController.getUsersByAlbumAndPrivileges("1","read");
+        ResponseEntity<Mono<List<Integer>>> res = userController.getUsersByAlbumAndPrivileges("1","read");
         StepVerifier
                 .create(res.getBody())
-                .expectNextMatches(users -> users.size() == 1 && users.iterator().next().equals("1"))
+                .expectNextMatches(users -> users.size() == 1 && users.iterator().next().equals(1))
                 .verifyComplete();
     }
 
@@ -87,13 +87,13 @@ public class UserControllerTest {
     public void testGetUsersByAlbumAndPrivilegesWithInvalidPriv() {
         albumController.registerAlbumWithUserAndPrivileges(new AlbumController.AlbumPrivileges(1,1,true,true))
                 .getBody().block();
-        ResponseEntity<Mono<List<String>>> res = userController.getUsersByAlbumAndPrivileges("1","invalid");
+        ResponseEntity<Mono<List<Integer>>> res = userController.getUsersByAlbumAndPrivileges("1","invalid");
         assertTrue(res.getStatusCode().equals(HttpStatus.BAD_REQUEST));
     }
 
     @Test
     public void testGetUsersByAlbumAndPrivilegesWhenThereIsNotUser() {
-        ResponseEntity<Mono<List<String>>> res = userController.getUsersByAlbumAndPrivileges("10","write");
+        ResponseEntity<Mono<List<Integer>>> res = userController.getUsersByAlbumAndPrivileges("10","write");
         StepVerifier
                 .create(res.getBody())
                 .expectNextMatches(users -> users.size() == 0)
