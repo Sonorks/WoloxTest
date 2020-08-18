@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="ALBUM_PRIVILEGES", schema = "WOLOX")
+@Table(name="ALBUM_PRIVILEGES")
 @IdClass(AlbumPrivilegesId.class)
 public class AlbumPrivilegesData {
     @Id

@@ -47,7 +47,7 @@ public class AlbumController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Mono<Boolean>> registarAlbumWithUserAndPrivileges(@RequestBody AlbumPrivileges albumPrivileges){
+    public ResponseEntity<Mono<Boolean>> updateAlbumWithUserAndPrivileges(@RequestBody AlbumPrivileges albumPrivileges){
         if(service.validateAlbumIdAndUserId(albumPrivileges.getAlbumId(), albumPrivileges.getUserId())) {
             return getOkResponse(service.updateAlbumWithUserAndPrivileges(albumPrivileges.getAlbumId(), albumPrivileges.getUserId(), albumPrivileges.isRead(), albumPrivileges.isWrite()));
         }
@@ -58,7 +58,7 @@ public class AlbumController {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
-    private static class AlbumPrivileges {
+    protected static class AlbumPrivileges {
         private int albumId;
         private int userId;
         private boolean read;

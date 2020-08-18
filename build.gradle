@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
 	implementation 'mysql:mysql-connector-java:8.0.19'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -32,8 +33,10 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'junit:junit:4.12'
+	testImplementation 'com.github.tomakehurst:wiremock:2.25.1'
 }
 
 test {
-	useJUnitPlatform()
+	useJUnit()
 }
